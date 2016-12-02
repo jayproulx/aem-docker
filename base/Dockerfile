@@ -22,7 +22,11 @@ ADD context.xml /usr/local/tomcat/conf/
 RUN rm -rf /usr/local/tomcat/webapps/ROOT*
 ADD AEM_6.2_Quickstart.war /usr/local/tomcat/webapps/ROOT.war
 ADD license.properties /usr/local/tomcat/
-RUN mkdir -p ~/WEB-INF
-ADD author-web.xml ~/WEB-INF/web.xml
 
-RUN jar -uf /usr/local/tomcat/webapps/ROOT.war -C ~ WEB-INF/web.xml
+# make some space to create the web.xml that we'll insert into the AEM WAR
+RUN mkdir -p /usr/local/tomcat/~/WEB-INF/
+ADD author-web.xml /usr/local/tomcat/~/WEB-INF/
+RUN mv /usr/local/tomcat/~/WEB-INF/author-web.xml /usr/local/tomcat/~/WEB-INF/web.xml
+
+# insert the customized web.xml into the AEM WAR
+RUN jar -uf /usr/local/tomcat/webapps/ROOT.war -C /usr/local/tomcat/~ WEB-INF/web.xml
