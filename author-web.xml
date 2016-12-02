@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*************************************************************************
+*
+* ADOBE CONFIDENTIAL
+* __________________
+*
+*  Copyright 2016 Adobe Systems Incorporated
+*  All Rights Reserved.
+*
+* NOTICE:  All information contained herein is, and remains
+* the property of Adobe Systems Incorporated and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Adobe Systems Incorporated and its
+* suppliers and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe Systems Incorporated.
+**************************************************************************/
+-->
+<web-app version="3.0"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<display-name>Adobe Granite Web Application</display-name>
+<servlet>
+<display-name>Granite Servlet</display-name>
+<servlet-name>granite</servlet-name>
+<servlet-class>
+org.apache.sling.launchpad.webapp.SlingServlet
+</servlet-class>
+<!--
+Any init-params defined for the servlet will overwrite
+the default settings in the sling.properties file.
+The most important init-param to be set here is the
+sling.home parameter defining where Sling will place
+its files such as the bundle cache, logs, configuration,
+etc.
+If the sling.home parameter is not set a default value is
+set as [user.dir]/sling/[context.path] where [user.dir]
+is the current working directory and [context.path] is the
+servlet context path with slashes replaced by underscores and
+the root context represented as just a single underscore.
+Example: For Sling deployed in the root context, the default
+sling.home would be sling/_. For Sling deployed in the context
+/sling/i1, the default sling.home would be sling/_sling_i1.
+-->
+<init-param>
+<param-name>sling.home</param-name>
+<param-value>crx-quickstart</param-value>
+</init-param>
+<!--
+The launchpad folder is created relative to the sling.home
+folder.
+-->
+<init-param>
+<param-name>sling.launchpad</param-name>
+<param-value>launchpad</param-value>
+</init-param>
+<!--
+The sling propreties are resolved relative to the
+sling.home folder.
+-->
+<init-param>
+<param-name>sling.properties</param-name>
+<param-value>launchpad/sling.properties</param-value>
+</init-param>
+<!-- Set the runmode per default to author -->
+<init-param>
+<param-name>sling.run.modes</param-name>
+<param-value>author,crx3,nosamplecontent</param-value>
+</init-param>
+<load-on-startup>100</load-on-startup>
+</servlet>
+<!-- Default Mapping for the Context -->
+<servlet-mapping>
+<servlet-name>granite</servlet-name>
+<url-pattern>/*</url-pattern>
+</servlet-mapping>
+<!-- Overwrite Mappings which may be present in default web.xml files -->
+<servlet-mapping>
+<servlet-name>granite</servlet-name>
+<url-pattern>*.jsp</url-pattern>
+</servlet-mapping>
+</web-app>
