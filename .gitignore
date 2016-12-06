@@ -2,3 +2,4 @@ AEM*.war
 AEM*.jar
 license.properties
 author/crx-quickstart
+base/crx-quickstart
