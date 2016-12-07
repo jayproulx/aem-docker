@@ -1,1 +1,1 @@
-docker exec -it `docker ps -qf "name=base"` /bin/bash 
+docker exec -it `docker ps -qf "name=aembase"` /bin/bash 
